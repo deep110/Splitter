@@ -10,4 +10,9 @@ public class Pair<T>{
 
 	public T Left{get; set;}
 	public T Right{get; set;}
+
+	public void Set(T left, T right){
+		Left = left;
+		Right = right;
+	}
 }
