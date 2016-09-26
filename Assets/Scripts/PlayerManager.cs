@@ -1,20 +1,28 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿/*
+* Act as top level manager for player. Gets Data from various other Managers and uses to build and control player in the game.
+* Like takes input from InputManager and passes to PlayerController, etc.
+*/
+
+using UnityEngine;
+//using System.Collections;
 
 namespace Splitter.Player{
 
-	[RequireComponent(typeof (PlayerController))]
+	[RequireComponent(typeof (InputManager))]
 	public class PlayerManager : MonoBehaviour {
 
-		// Use this for initialization
+		private InputManager input;
+		private PlayerController mPlayer;
+
 		void Start () {
-		
+		  input = GetComponent<InputManager>();
+		  mPlayer = GetComponent<PlayerController>();
 		}
 		
-		// Update is called once per frame
 		void Update () {
-		
+			mPlayer.Move(input.MappedInput);
 		}
+		
 	}
 
 }
