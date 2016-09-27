@@ -27,24 +27,24 @@ namespace Splitter.Player{
 			//Debug.Log(input);
 
 			switch(input){
-				case InputManager.InputType.LEFT:
+				case InputManager.InputType.Left:
 					velocity.Left = -1;
 					velocity.Right = -1;
 					break;
 
-				case InputManager.InputType.RIGHT:
+				case InputManager.InputType.Right:
 					velocity.Left = 1;
 					velocity.Right = 1;
 					break;
 
-				case InputManager.InputType.BOTH:
+				case InputManager.InputType.Both:
 					velocity.Left = -1;
 					velocity.Right = 1;
 					break;
 
-				case InputManager.InputType.NONE:
-					velocity.Left = getReturnVelocity(initialPos.Left.x, player.Left.position.x);
-					velocity.Right = getReturnVelocity(initialPos.Right.x, player.Right.position.x);
+				case InputManager.InputType.None:
+					velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
+					velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
 
 					if((int)velocity.Left == 0){
 						player.Left.position = initialPos.Left;
@@ -64,7 +64,7 @@ namespace Splitter.Player{
 		* x1 = initial Position
 		* x2 = current Position
 		**/
-		private float getReturnVelocity(float x1, float x2){
+		private float GetReturnVelocity(float x1, float x2){
 			float v;
 			if(x2-x1 <0){
 				v = 1;

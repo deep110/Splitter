@@ -3,10 +3,10 @@
 public class InputManager : MonoBehaviour {
 
 	public enum InputType{
-		LEFT,
-		RIGHT,
-		BOTH,
-		NONE
+		Left,
+		Right,
+		Both,
+		None
 	}
 
 	float halfScreenWidth;
@@ -18,9 +18,9 @@ public class InputManager : MonoBehaviour {
 
 		halfScreenWidth = Screen.width/2;
 		touchX = new float[2];
-		touchX[0]=touchX[1] = -1f;
+		touchX[0]= touchX[1] = -1f;
 
-		MappedInput = InputType.NONE;
+		MappedInput = InputType.None;
 	}
 
 	
@@ -30,23 +30,23 @@ public class InputManager : MonoBehaviour {
 			touchX[i] = Input.GetTouch(i).position.x;
 		}
 
-		mapInput();
+		MapInput();
 	}
 
-	private void mapInput(){
-		if(touchX[0] != -1f){
+	private void MapInput(){
+		if(touchX[0] > -1f){
 			if(touchX[0]<halfScreenWidth){
 				if(touchX[1]> halfScreenWidth){
-					MappedInput = InputType.BOTH;
-				}else MappedInput = InputType.LEFT;
+					MappedInput = InputType.Both;
+				}else MappedInput = InputType.Left;
 			}else{
-				if(touchX[1]!= -1f && touchX[1]< halfScreenWidth){
-					MappedInput = InputType.BOTH;
-				}else MappedInput = InputType.RIGHT;
+				if(touchX[1] > 0 && touchX[1]< halfScreenWidth){
+					MappedInput = InputType.Both;
+				}else MappedInput = InputType.Right;
 			}
 
 		}else{
-			MappedInput = InputType.NONE;
+			MappedInput = InputType.None;
 		}
 
 		touchX[0] = touchX[1] = -1f;
