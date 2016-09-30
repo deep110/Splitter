@@ -26,9 +26,8 @@ namespace Splitter.Player{
 		}
 
 		public void Move(InputManager.InputType input){
-			
+
 			switch(input){
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
 				case InputManager.InputType.LEFT:
 					velocity.Left = -1* getVelocity(player.Left.position.x - initialPos.Left.x);
 					velocity.Right = -1*getVelocity(player.Right.position.x);
@@ -59,30 +58,6 @@ namespace Splitter.Player{
 							velocity.Left = 0;
 							posReset.Left = true;
 						}
-						
-=======
-				case InputManager.InputType.Left:
-					velocity.Left = -1;
-					velocity.Right = -1;
-					break;
-
-				case InputManager.InputType.Right:
-					velocity.Left = 1;
-					velocity.Right = 1;
-					break;
-
-				case InputManager.InputType.Both:
-					velocity.Left = -1;
-					velocity.Right = 1;
-					break;
-
-				case InputManager.InputType.None:
-					velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
-					velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
-
-					if((int)velocity.Left == 0){
-						player.Left.position = initialPos.Left;
->>>>>>> master:Assets/Scripts/Player/PlayerController.cs
 					}
 
 					if(!posReset.Right){
@@ -113,13 +88,8 @@ namespace Splitter.Player{
 		/*
 		* x1 = initial Position
 		* x2 = current Position
-<<<<<<< HEAD:Assets/Scripts/PlayerController.cs
 		*/
-		private float getReturnVelocity(float x1, float x2){
-=======
-		**/
 		private float GetReturnVelocity(float x1, float x2){
->>>>>>> master:Assets/Scripts/Player/PlayerController.cs
 			float v;
 			if(x2-x1 <0){
 				v = getVelocity(x2-x1);
