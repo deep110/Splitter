@@ -24,7 +24,6 @@ namespace Splitter.Player{
 		}
 
 		public void Move(InputManager.InputType input){
-			//Debug.Log(input);
 
 			switch(input){
 				case InputManager.InputType.Left:

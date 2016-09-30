@@ -63,6 +63,7 @@ public sealed class ObjectPooler{
 		GameObject obj = GetPooledObject();
 		obj.transform.position = position;
 		obj.transform.rotation = rotation;
+		obj.SetActive(true);
 
 		return obj;
 	}
