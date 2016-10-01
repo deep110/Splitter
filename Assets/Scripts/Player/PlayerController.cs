@@ -78,5 +78,10 @@ namespace Splitter.Player{
 			return v;
 		}
 
+
+		public void Dead(int index){
+	        Debug.Log("player dead");   
+    	}
+
 	}
 }
