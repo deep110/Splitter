@@ -1,15 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SpikeController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	private readonly float Speed = 4;
+	private bool move = true;
+	private Rigidbody2D rigidBody;
 	
+
+	void Start(){
+		rigidBody = transform.GetComponent<Rigidbody2D>();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-	
+		if(move){
+			rigidBody.velocity = Vector2.down * (Speed);
+		}else{
+			rigidBody.velocity = Vector2.zero;
+		}
 	}
+
+	public void Invert(){
+		float scaleX = transform.localScale.x;
+		transform.localScale = new Vector3(-scaleX, transform.localScale.y);
+	}
+
+	public void Stop(){
+		move = false;
+	}
+
 }
