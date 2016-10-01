@@ -1,7 +1,7 @@
 ﻿/*
-* Act as top level manager for player. Gets Data from various other Managers and uses to build and control player in the game.
-* Like takes input from InputManager and passes to PlayerController, etc.
-*/
+ * Act as top level manager for player. Gets Data from various other Managers and uses to build and control player in the game.
+ * Like takes input from InputManager and passes to PlayerController, etc.
+ */
 
 using UnityEngine;
 //using System.Collections;
