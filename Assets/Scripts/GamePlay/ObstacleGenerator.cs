@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
+//using System.Collections;
 
 public class ObstacleGenerator : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-	
+		Events.GameOverEvent += GameOver;
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void OnDisable(){
+		Events.GameOverEvent -= GameOver;
+	}
+
+	private void GameOver(){
 	}
 }
