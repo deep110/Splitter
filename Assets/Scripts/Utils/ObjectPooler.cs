@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public sealed class ObjectPooler{
+public class ObjectPooler{
 
 	public int PoolSize {get { return pooledObjects.Count; }}
 	public bool WillGrow {get; set;}

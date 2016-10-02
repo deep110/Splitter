@@ -11,7 +11,7 @@ public class SpikeController : MonoBehaviour {
 		rigidBody = transform.GetComponent<Rigidbody2D>();
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		if(move){
 			rigidBody.velocity = Vector2.down * (Speed);
 		}else{
