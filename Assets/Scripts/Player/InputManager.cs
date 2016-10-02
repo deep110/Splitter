@@ -30,7 +30,8 @@ public class InputManager : MonoBehaviour {
 			touchX[i] = Input.GetTouch(i).position.x;
 		}
 
-		MapInput();
+		//MapInput();
+		MapKeyBoardInput();
 	}
 
 	private void MapInput(){
@@ -51,5 +52,20 @@ public class InputManager : MonoBehaviour {
 
 		touchX[0] = touchX[1] = -1f;
 	
+	}
+
+	private void MapKeyBoardInput(){
+		float h = Input.GetAxis("Horizontal");
+		if(h>0){
+			MappedInput = InputType.Right;
+		}else if(h<0){
+			MappedInput = InputType.Left;
+		}else if(h == 0){
+			MappedInput = InputType.None;
+		}else{
+			if(Input.GetButtonDown("B")) MappedInput = InputType.Both;
+		}
+
+		
 	}
 }

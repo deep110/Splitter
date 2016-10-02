@@ -24,7 +24,7 @@ public class SpikeController : MonoBehaviour {
 			other.gameObject.transform.parent.SendMessage("Dead", -1);
 		}else if(other.gameObject.tag == "PlayerRight"){
 			other.gameObject.transform.parent.SendMessage("Dead", 1);
-		}	
+		}
 	}
 
 	public void Invert(){
