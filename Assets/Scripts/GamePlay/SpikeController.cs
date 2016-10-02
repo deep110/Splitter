@@ -2,7 +2,7 @@
 
 public class SpikeController : MonoBehaviour {
 
-	private readonly float Speed = 4;
+	private readonly float Speed = 4.5f;
 	private bool move = true;
 	private Rigidbody2D rigidBody;
 	
@@ -25,11 +25,6 @@ public class SpikeController : MonoBehaviour {
 		}else if(other.gameObject.tag == "PlayerRight"){
 			other.gameObject.transform.parent.SendMessage("Dead", 1);
 		}
-	}
-
-	public void Invert(){
-		float scaleX = transform.localScale.x;
-		transform.localScale = new Vector3(-scaleX, transform.localScale.y);
 	}
 
 	public void Stop(){

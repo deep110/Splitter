@@ -60,10 +60,12 @@ public class InputManager : MonoBehaviour {
 			MappedInput = InputType.Right;
 		}else if(h<0){
 			MappedInput = InputType.Left;
-		}else if(h == 0){
-			MappedInput = InputType.None;
 		}else{
-			if(Input.GetButtonDown("B")) MappedInput = InputType.Both;
+			MappedInput = InputType.None;
+		}
+
+		if(Input.GetButton("Jump")){
+			 MappedInput = InputType.Both;
 		}
 
 		
