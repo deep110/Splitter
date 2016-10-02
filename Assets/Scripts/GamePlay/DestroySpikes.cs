@@ -4,9 +4,9 @@ public class DestroySpikes : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D other){
 
-		if(other.gameObject.transform.parent.parent == null){
+		if(other.gameObject.transform.parent == null){
 			Destroy(other.gameObject);
-		}else{	
+		}else{
 			Destroy(other.gameObject.transform.parent.gameObject);
 		}
 		

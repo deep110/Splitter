@@ -2,7 +2,8 @@
 
 public class PlayerScript : MonoBehaviour {
 
-	void OnCollisionEnter2D(Collision2D col) {
-        Debug.Log("player collider");
+	void OnCollisionEnter2D(Collision2D other) {
+       // Debug.Log("player collider");
     }
+
 }

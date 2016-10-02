@@ -4,39 +4,34 @@
  */
 
 using UnityEngine;
-//using System.Collections;
 
-namespace Splitter.Player{
+[RequireComponent(typeof (InputManager))]
+public class PlayerManager : MonoBehaviour {
 
-	[RequireComponent(typeof (InputManager))]
-	public class PlayerManager : MonoBehaviour {
+	private InputManager input;
+	private bool gameOver = false;
 
-		private InputManager input;
-		private bool gameOver = false;
+	public PlayerController player;
 
-		public PlayerController player;
-
-		void Start () {
-		  input = GetComponent<InputManager>();
-		  Events.GameOverEvent += PlayerHit;
+	void Start () {
+	  input = GetComponent<InputManager>();
+	  Events.GameOverEvent += PlayerHit;
+	}
+	
+	void Update () {
+		if(!gameOver){
+			player.Move(input.MappedInput);
 		}
-		
-		void Update () {
-			if(!gameOver){
-				player.Move(input.MappedInput);
-			}	
-		}
-
-		void OnDisable(){
-			Events.GameOverEvent -= PlayerHit;
-		}
-
-		private void PlayerHit(){
-			gameOver = true;
-		}
-
-		
 	}
 
+	void OnDisable(){
+		Events.GameOverEvent -= PlayerHit;
+	}
+
+	private void PlayerHit(){
+		gameOver = true;
+	}
+
+	
 }
 
