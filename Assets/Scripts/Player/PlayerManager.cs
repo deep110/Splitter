@@ -12,16 +12,29 @@ namespace Splitter.Player{
 	public class PlayerManager : MonoBehaviour {
 
 		private InputManager input;
-		private PlayerController mPlayer;
+		private bool gameOver = false;
+
+		public PlayerController player;
 
 		void Start () {
 		  input = GetComponent<InputManager>();
-		  mPlayer = GetComponent<PlayerController>();
+		  Events.GameOverEvent += PlayerHit;
 		}
 		
 		void Update () {
-			mPlayer.Move(input.MappedInput);
+			if(!gameOver){
+				player.Move(input.MappedInput);
+			}	
 		}
+
+		void OnDisable(){
+			Events.GameOverEvent -= PlayerHit;
+		}
+
+		private void PlayerHit(){
+			gameOver = true;
+		}
+
 		
 	}
 

@@ -80,7 +80,10 @@ namespace Splitter.Player{
 
 
 		public void Dead(int index){
-	        Debug.Log("player dead");   
+	        //Debug.Log("player dead "+ index);
+	        Events.CallGameOver();
+	        //handle stopping the player left
+
     	}
 
 	}
