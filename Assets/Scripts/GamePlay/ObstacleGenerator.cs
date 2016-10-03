@@ -12,9 +12,12 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	public Obstacles obstacles;
+	private SpecialQueue queue = new SpecialQueue();
+	private int spikeNumber = 0;
 
 	void Start () {
 		Events.GameOverEvent += GameOver;
+		spikeNumber = GetSpikeNumber();
 		StartCoroutine(GenerateObstacle());
 	}
 	
@@ -25,10 +28,9 @@ public class ObstacleGenerator : MonoBehaviour {
 	private IEnumerator GenerateObstacle(){
 
 		yield return new WaitForSeconds(2);
-		SpecialQueue lastSpikes = new SpecialQueue();
-
+		
 		while(true){
-			switch(GetObstacleNumber(lastSpikes)){
+			switch(spikeNumber){
 				case 1:
 					Instantiate(obstacles.spikeLeft);
 					break;
@@ -45,21 +47,25 @@ public class ObstacleGenerator : MonoBehaviour {
 					Instantiate(obstacles.spikeCenter);
 					break;
 			}
+
+			spikeNumber = GetSpikeNumber();
+			float waitTime = 0.8f;
+			if(queue.IsCenterSpike()) waitTime = 1f;
 			
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(waitTime);
 		}
 		
 	}
 
-	private int GetObstacleNumber(SpecialQueue q){
+	private int GetSpikeNumber(){
 		int x = Random.Range(1, 5);
-		if(q.IsAlert(x)){
+		if(queue.IsAlert(x)){
 			int y = Random.Range(1, 4);
 			if(x == y) x = 4;
 			else x = y;
 		}
+		queue.Push(x);
 
-		q.Push(x);
 		return x;	
 	}
 
@@ -78,6 +84,10 @@ public class ObstacleGenerator : MonoBehaviour {
 			array[0] = array[1] = -1;
 		}
 
+		public int[] Get(){
+			return array;
+		}
+
 		public void Push(int num){
 			array[1] = array[0];
 			array[0] = num;
@@ -87,8 +97,11 @@ public class ObstacleGenerator : MonoBehaviour {
 			if(array[0] == 4 && num == 4){
 				return true;
 			}
-
 			return (array[0]== array[1] && array[0] == num);
+		}
+
+		public bool IsCenterSpike(){
+			return (array[0]==4 && array[1] <3);
 		}
 	}
 }
