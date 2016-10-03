@@ -2,7 +2,7 @@
 
 public class SpikeController : MonoBehaviour {
 
-	private readonly float Speed = 4.5f;
+	private readonly float Speed = 6.5f;
 	private bool move = true;
 	private Rigidbody2D rigidBody;
 	
