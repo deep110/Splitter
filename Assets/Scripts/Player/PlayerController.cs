@@ -26,30 +26,30 @@ public class PlayerController : MonoBehaviour{
 	public void Move(InputManager.InputType input){
 
 		switch(input){
-			case InputManager.InputType.LEFT:
-				velocity.Left = -1* getVelocity(player.Left.position.x - initialPos.Left.x);
-				velocity.Right = -1*getVelocity(player.Right.position.x);
+			case InputManager.InputType.Left:
+				velocity.Left = -GetVelocity(player.Left.position.x);
+				velocity.Right = -GetVelocity(player.Right.position.x);
 				posReset.Set(false, false);
 
 				break;
 
-			case InputManager.InputType.RIGHT:
-				velocity.Left = getVelocity(player.Left.position.x - initialPos.Left.x);
-				velocity.Right = getVelocity(player.Right.position.x);
+			case InputManager.InputType.Right:
+				velocity.Left = GetVelocity(player.Left.position.x);
+				velocity.Right = GetVelocity(player.Right.position.x);
 				posReset.Set(false, false);
 
 				break;
 
-			case InputManager.InputType.BOTH:
-				velocity.Left = -1* getVelocity(player.Left.position.x - initialPos.Left.x);
-				velocity.Right = getVelocity(player.Right.position.x);
+			case InputManager.InputType.Both:
+				velocity.Left = -GetVelocity(player.Left.position.x);
+				velocity.Right = GetVelocity(player.Right.position.x);
 				posReset.Set(false, false);
 
 				break;
 
-			case InputManager.InputType.NONE:
+			case InputManager.InputType.None:
 				if(!posReset.Left){
-					velocity.Left = getReturnVelocity(initialPos.Left.x, player.Left.position.x);
+					velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
 
 					if((int)velocity.Left == -10) {
 						player.Left.position = initialPos.Left;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour{
 				}
 
 				if(!posReset.Right){
-					velocity.Right = getReturnVelocity(initialPos.Right.x, player.Right.position.x);
+					velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
 
 					if((int)velocity.Right == -10){
 						player.Right.position = initialPos.Right;
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour{
 	/*
 	* x = mod of current Position
 	*/
-	private float getVelocity(float x){
+	private float GetVelocity(float x){
 		x = Mathf.Abs(x);
 		return Mathf.Pow(x+1, 4) * (-0.002233f) + 1f;
 	}
@@ -90,9 +90,9 @@ public class PlayerController : MonoBehaviour{
 	private float GetReturnVelocity(float x1, float x2){
 		float v;
 		if(x2-x1 <0){
-			v = getVelocity(x2-x1);
+			v = GetVelocity(x2-x1);
 		}else if(x2 - x1 > 0){
-			v = -1* getVelocity(x2-x1);
+			v = -GetVelocity(x2-x1);
 		}else v = 0;
 
 		if(Mathf.Abs(x2-x1) <= (SPEED/50)){
@@ -104,7 +104,6 @@ public class PlayerController : MonoBehaviour{
 
 
 	public void Dead(int index){
-        //Debug.Log("player dead "+ index);
         Events.CallGameOver();
 
         if(index == -1){
