@@ -56,6 +56,7 @@ public class InputManager : MonoBehaviour {
 
 	private void MapKeyBoardInput(){
 		float h = Input.GetAxis("Horizontal");
+
 		if(h>0){
 			MappedInput = InputType.Right;
 		}else if(h<0){
