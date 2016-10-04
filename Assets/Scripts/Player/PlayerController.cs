@@ -27,15 +27,15 @@ public class PlayerController : MonoBehaviour{
 
 		switch(input){
 			case InputManager.InputType.Left:
-				velocity.Left = -GetVelocity(player.Left.position.x);
-				velocity.Right = -GetVelocity(player.Right.position.x);
+				velocity.Left = -1;
+				velocity.Right = -1;
 				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.Right:
-				velocity.Left = GetVelocity(player.Left.position.x);
-				velocity.Right = GetVelocity(player.Right.position.x);
+				velocity.Left = 1;
+				velocity.Right = 1;
 				posReset.Set(false, false);
 
 				break;
@@ -48,24 +48,12 @@ public class PlayerController : MonoBehaviour{
 				break;
 
 			case InputManager.InputType.None:
-				if(!posReset.Left){
-					velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
-
-					if((int)velocity.Left == -10) {
-						player.Left.position = initialPos.Left;
-						velocity.Left = 0;
-						posReset.Left = true;
-					}
+				if((int)velocity.Left == 0){
+					player.Left.position = initialPos.Left;
 				}
 
-				if(!posReset.Right){
-					velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
-
-					if((int)velocity.Right == -10){
-						player.Right.position = initialPos.Right;
-						velocity.Right = 0;
-						posReset.Right = true;
-					}
+				if((int)velocity.Right == 0){
+					player.Right.position = initialPos.Right;
 				}
 					
 				break;
@@ -90,13 +78,13 @@ public class PlayerController : MonoBehaviour{
 	private float GetReturnVelocity(float x1, float x2){
 		float v;
 		if(x2-x1 <0){
-			v = GetVelocity(x2-x1);
+			v = 1;
 		}else if(x2 - x1 > 0){
-			v = -GetVelocity(x2-x1);
+			v = -1;
 		}else v = 0;
 
 		if(Mathf.Abs(x2-x1) <= (SPEED/50)){
-			v = -10;
+			v = 0;
 		}
 
 		return v;
