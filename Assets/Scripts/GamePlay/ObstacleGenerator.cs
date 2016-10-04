@@ -12,6 +12,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	public Obstacles obstacles;
+	//private List<ObjectPooler> objectPoolers;
 	private SpecialQueue queue = new SpecialQueue();
 	private int spikeNumber = 0;
 

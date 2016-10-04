@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
 
-	public readonly float SPEED = 22;
+	private readonly float SPEED = 22;
 	private Pair<Transform> player;
 	private Pair<Rigidbody2D> rigidBody;
 	private Pair<Vector3> initialPos;
 
 	private Pair<float> velocity;
 	private Pair<bool> posReset;
+	public GameObject explosionPrefab;
 	
 
 	void Start(){
@@ -29,21 +30,18 @@ public class PlayerController : MonoBehaviour{
 			case InputManager.InputType.Left:
 				velocity.Left = -1;
 				velocity.Right = -1;
-				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.Right:
 				velocity.Left = 1;
 				velocity.Right = 1;
-				posReset.Set(false, false);
 
 				break;
 
 			case InputManager.InputType.Both:
 				velocity.Left = -GetVelocity(player.Left.position.x);
 				velocity.Right = GetVelocity(player.Right.position.x);
-				posReset.Set(false, false);
 
 				break;
 
@@ -96,18 +94,19 @@ public class PlayerController : MonoBehaviour{
 
         if(index == -1){
         	Destroy(player.Left.gameObject);
+        	Instantiate(explosionPrefab, player.Left.position, Quaternion.identity);
         	player.Left = null;
         	if(player.Right!= null){
         		rigidBody.Right.velocity = Vector2.zero;
         	}
         }else{
         	Destroy(player.Right.gameObject);
+        	Instantiate(explosionPrefab, player.Right.position, Quaternion.identity);
         	player.Right = null;
         	if(player.Left!= null){
         		rigidBody.Left.velocity = Vector2.zero;
         	}
         }
-
 	}
 
 }
