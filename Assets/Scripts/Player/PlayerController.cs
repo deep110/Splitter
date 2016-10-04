@@ -106,7 +106,20 @@ public class PlayerController : MonoBehaviour{
 	public void Dead(int index){
         //Debug.Log("player dead "+ index);
         Events.CallGameOver();
-        //handle stopping the player left
+
+        if(index == -1){
+        	Destroy(player.Left.gameObject);
+        	player.Left = null;
+        	if(player.Right!= null){
+        		rigidBody.Right.velocity = Vector2.zero;
+        	}
+        }else{
+        	Destroy(player.Right.gameObject);
+        	player.Right = null;
+        	if(player.Left!= null){
+        		rigidBody.Left.velocity = Vector2.zero;
+        	}
+        }
 
 	}
 
