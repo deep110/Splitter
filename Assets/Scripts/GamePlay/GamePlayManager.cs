@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
+//using System.Collections;
 
 public class GamePlayManager : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
-	
+		Events.GameOverEvent += GameOver;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	private void GameOver(){
+		//Debug.Log("over in manager");
+		// show gameover dialog
+	}
+
+	void OnDisable(){
+		Events.GameOverEvent -= GameOver;
 	}
 }

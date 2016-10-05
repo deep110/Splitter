@@ -51,7 +51,6 @@ public class ObjectPooler{
 
 		if(WillGrow){
 			GameObject obj = Object.Instantiate(pooledObject);
-			Debug.Log(obj.name);
 			obj.SetActive(false);
 			pooledObjects.Add(obj);
 			return obj;
