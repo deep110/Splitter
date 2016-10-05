@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-//using System.Collections;
 
 public class GamePlayManager : MonoBehaviour {
 
+	public int Score{get; private set;}
+
 	void Start () {
 		Events.GameOverEvent += GameOver;
+		Score = 0;
 	}
 	
 	private void GameOver(){
@@ -15,4 +17,9 @@ public class GamePlayManager : MonoBehaviour {
 	void OnDisable(){
 		Events.GameOverEvent -= GameOver;
 	}
+
+	void OnTriggerExit2D(Collider2D other){
+		Score++;
+	}
+
 }
