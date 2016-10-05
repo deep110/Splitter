@@ -5,9 +5,10 @@ public class DestroySpikes : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other){
 
 		if(other.gameObject.transform.parent == null){
-			Destroy(other.gameObject);
+			other.gameObject.SetActive(false);
 		}else{
-			Destroy(other.gameObject.transform.parent.gameObject);
+			other.gameObject.transform.parent.gameObject.SetActive(false);
+			//Debug.Log("In des: "+other.gameObject.transform.parent.gameObject.GetInstanceID());
 		}
 		
 	}

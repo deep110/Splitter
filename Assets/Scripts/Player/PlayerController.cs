@@ -40,12 +40,15 @@ public class PlayerController : MonoBehaviour{
 				break;
 
 			case InputManager.InputType.Both:
-				velocity.Left = -GetVelocity(player.Left.position.x);
-				velocity.Right = GetVelocity(player.Right.position.x);
+				velocity.Left = -1;
+				velocity.Right = 1;
 
 				break;
 
 			case InputManager.InputType.None:
+				velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
+				velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
+
 				if((int)velocity.Left == 0){
 					player.Left.position = initialPos.Left;
 				}

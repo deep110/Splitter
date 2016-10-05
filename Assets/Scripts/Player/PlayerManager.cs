@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(!gameOver){
+		if(!gameOver && player!=null){
 			player.Move(input.MappedInput);
 		}
 	}

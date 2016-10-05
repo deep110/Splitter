@@ -8,6 +8,7 @@ public class ObjectPooler{
 
 	private GameObject pooledObject;
 	private List<GameObject> pooledObjects;
+	//private List<GameObject> activeObjects;
 
 	public ObjectPooler(){
 		WillGrow = true;
@@ -51,6 +52,7 @@ public class ObjectPooler{
 
 		if(WillGrow){
 			GameObject obj = Object.Instantiate(pooledObject);
+			Debug.Log(obj.name);
 			obj.SetActive(false);
 			pooledObjects.Add(obj);
 			return obj;
@@ -67,6 +69,20 @@ public class ObjectPooler{
 
 		return obj;
 	}
+
+	// public List<GameObject> GetActiveObjects(){
+	// 	if(activeObjects==null) activeObjects = new List<GameObject>();
+
+	// 	activeObjects.Clear();
+
+	// 	for(int i=0; i< pooledObjects.Count; i++){
+	// 		if(pooledObjects[i].activeInHierarchy){
+	// 			activeObjects.Add(pooledObjects[i]);
+	// 		}
+	// 	}
+
+	// 	return activeObjects;
+	// }
 
 
 	

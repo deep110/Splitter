@@ -5,7 +5,10 @@ public class SpikeController : MonoBehaviour {
 	private readonly float Speed = 6.5f;
 	private bool move = true;
 	private Rigidbody2D rigidBody;
-	
+
+	void OnEnable(){
+		//Debug.Log("enabled called");
+	}
 
 	void Start(){
 		rigidBody = transform.GetComponent<Rigidbody2D>();
@@ -27,7 +30,8 @@ public class SpikeController : MonoBehaviour {
 		}
 	}
 
-	public void Stop(){
+	private void GameOver(){
+		//stop the spikes..
 		move = false;
 	}
 
