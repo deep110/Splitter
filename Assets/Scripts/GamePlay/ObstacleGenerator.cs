@@ -13,6 +13,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	public Obstacles obstacles;
+	
 	private Dictionary<int,ObjectPooler> objectPoolers;
 	private int spikeId = 0;
 	private bool isGameOver = false;
@@ -26,7 +27,6 @@ public class ObstacleGenerator : MonoBehaviour {
 		Events.GameOverEvent -= GameOver;
 	}
 
-	
 	private IEnumerator GenerateObstacle(){
 		objectPoolers = new Dictionary<int, ObjectPooler>(4);
 		InitObjectPools();
@@ -80,13 +80,22 @@ public class ObstacleGenerator : MonoBehaviour {
 			Transform childTransform = transForm.GetChild(i);
 			childTransform.localPosition = new Vector2(childTransform.localPosition.x, 0f);
 		}
+		transForm.parent = transform;
 		obj.SetActive(true);
 
 		return obj;
 	}
 
 	private void GameOver(){
-		isGameOver = true;
+		//stopping all the spikes.
+		if(!isGameOver){
+			SpikeController[] spikeControllers =  transform.GetComponentsInChildren<SpikeController>(false);
+			for(int i=0; i<spikeControllers.Length;i++){
+				spikeControllers[i].Stop();
+			}
+			//stopping generation of new spikes.
+			isGameOver = true;
+		}
 	}
 
 

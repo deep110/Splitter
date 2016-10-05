@@ -6,10 +6,6 @@ public class SpikeController : MonoBehaviour {
 	private bool move = true;
 	private Rigidbody2D rigidBody;
 
-	void OnEnable(){
-		//Debug.Log("enabled called");
-	}
-
 	void Start(){
 		rigidBody = transform.GetComponent<Rigidbody2D>();
 	}
@@ -30,8 +26,8 @@ public class SpikeController : MonoBehaviour {
 		}
 	}
 
-	private void GameOver(){
-		//stop the spikes..
+	//stop the spikes
+	public void Stop(){	
 		move = false;
 	}
 
