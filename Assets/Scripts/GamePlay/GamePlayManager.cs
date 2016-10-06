@@ -2,16 +2,17 @@
 
 public class GamePlayManager : MonoBehaviour {
 
-	public int Score{get; private set;}
+	public int Score{get {return (int)score;}}
+	private float score = 0;
+
+	public bool gameOver = false;
 
 	void Start () {
 		Events.GameOverEvent += GameOver;
-		Score = 0;
 	}
 	
 	private void GameOver(){
-		//Debug.Log("over in manager");
-		// show gameover dialog
+		gameOver = true;
 	}
 
 	void OnDisable(){
@@ -19,7 +20,11 @@ public class GamePlayManager : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other){
-		Score++;
+		if(other.tag.Equals("SpikeBoth")){
+			score += 0.5f;
+		}else{
+			score++;
+		}
 	}
 
 }
