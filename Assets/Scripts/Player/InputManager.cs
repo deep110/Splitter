@@ -24,14 +24,14 @@ public class InputManager : MonoBehaviour {
 	}
 
 	
-	void Update () {
+	void FixedUpdate () {
 		
 		for(int i=0;i< Input.touchCount && i<2;i++){
 			touchX[i] = Input.GetTouch(i).position.x;
 		}
 
-		MapInput();
-		//MapKeyBoardInput();
+		//MapInput();
+		MapKeyBoardInput();
 	}
 
 	private void MapInput(){
