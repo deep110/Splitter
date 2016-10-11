@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour{
 
 	private void AdjustConnector(){
 		float distance = player.Right.position.x - player.Left.position.x;
-		scale.Left = 1.133f * (distance - 0.9f);
-		scale.Right = 1.074f - (0.0825f * distance);
+		scale.Left = 1.13f * (distance - 0.9f);
+		scale.Right = 1f - (0.081f * distance);
 		connector.localScale = new Vector2(scale.Left, scale.Right);
 		connector.position = new Vector2((player.Right.position.x + player.Left.position.x)/2, initialPos.Left.y);
 	}
