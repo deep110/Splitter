@@ -5,6 +5,7 @@ public class GamePlayManager : MonoBehaviour {
 	public int Score{get {return (int)score;}}
 	private float score = 0;
 
+	public bool gameStart = true;
 	public bool gameOver = false;
 
 	void Start () {
