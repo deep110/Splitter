@@ -111,22 +111,9 @@ public class PlayerController : MonoBehaviour{
 
 	public void Dead(int index){
         Events.CallGameOver();
-
-        if(index == -1){
-        	Destroy(player.Left.gameObject);
-        	Instantiate(explosionPrefab, player.Left.position, Quaternion.identity);
-        	player.Left = null;
-        	if(player.Right!= null){
-        		rigidBody.Right.velocity = Vector2.zero;
-        	}
-        }else{
-        	Destroy(player.Right.gameObject);
-        	Instantiate(explosionPrefab, player.Right.position, Quaternion.identity);
-        	player.Right = null;
-        	if(player.Left!= null){
-        		rigidBody.Left.velocity = Vector2.zero;
-        	}
-        }
+        Destroy(player.Left.gameObject);
+		Destroy (player.Right.gameObject);
+        Instantiate(explosionPrefab, player.Left.position, Quaternion.identity); 
 
         if(connector!=null){
         	Destroy(connector.gameObject);
