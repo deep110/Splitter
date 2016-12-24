@@ -30,12 +30,12 @@ public class UIManager : MonoBehaviour {
 			//activate gameOver Dialog
 			GameObject gameOverDialog = transform.GetChild(1).gameObject;
 			gameOverDialog.SetActive(true);
-			gameOverDialog.GetComponentInChildren<Text>().text = string.Format("Score: {0}", gamePlayManager.Score);
+			gameOverDialog.GetComponentInChildren<Text>().text = string.Format("{0}", gamePlayManager.Score);
 			isDialogShown = true;
 		}
 	}
 
 	public void OnClickRestart(){
-		 SceneManager.LoadScene(0);
+		SceneManager.LoadScene(0);
 	}
 }
