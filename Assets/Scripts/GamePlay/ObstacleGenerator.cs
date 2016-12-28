@@ -10,6 +10,7 @@ public class ObstacleGenerator : MonoBehaviour {
 		public GameObject spikeRight;
 		public GameObject spikeBoth;
 		public GameObject spikeCenter;
+		public GameObject spikeThree;
 	}
 
 	public Obstacles obstacles;
@@ -28,7 +29,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	private IEnumerator GenerateObstacle(){
-		objectPoolers = new Dictionary<int, ObjectPooler>(4);
+		objectPoolers = new Dictionary<int, ObjectPooler>(5);
 		InitObjectPools();
 
 		//make queue for storing previous values which will help in generating next spike.
@@ -61,13 +62,14 @@ public class ObstacleGenerator : MonoBehaviour {
 		objectPoolers[2] = new ObjectPooler(obstacles.spikeRight, 3);
 		objectPoolers[3] = new ObjectPooler(obstacles.spikeBoth, 3);
 		objectPoolers[4] = new ObjectPooler(obstacles.spikeCenter, 2);
+		objectPoolers[5] = new ObjectPooler (obstacles.spikeThree, 3);
 	}
 
 	// Generates the new spike id that is to be instatiated.
 	private int GetspikeId(SpecialQueue queue){
-		int x = Random.Range(1, 5);
+		int x = Random.Range(1, 6);
 		if(queue.IsAlert(x)){
-			int y = Random.Range(1, 4);
+			int y = Random.Range(1, 5);
 			if(x == y) x = 4;
 			else x = y;
 		}
@@ -81,11 +83,11 @@ public class ObstacleGenerator : MonoBehaviour {
 		transForm.position = new Vector2(transForm.position.x, 12f);
 		transForm.rotation = Quaternion.identity;
 
-		//reset Y position of its each children
-		for(int i=0; i<transForm.childCount; i++){
-			Transform childTransform = transForm.GetChild(i);
-			childTransform.localPosition = new Vector2(childTransform.localPosition.x, 0f);
-		}
+//		//reset Y position of its each children
+//		for(int i=0; i < transForm.childCount; i++){
+//			Transform childTransform = transForm.GetChild(i);
+//			childTransform.localPosition = new Vector2(childTransform.localPosition.x, 0f);
+//		}
 		transForm.parent = transform;
 		obj.SetActive(true);
 
