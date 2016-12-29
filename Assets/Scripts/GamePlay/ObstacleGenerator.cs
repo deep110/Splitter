@@ -75,20 +75,12 @@ public class ObstacleGenerator : MonoBehaviour {
 		}
 		queue.Push(x);
 
-		return x;	
+		return x;
 	}
 
 	private GameObject Spawn(GameObject obj){
 		Transform transForm = obj.transform;
 		transForm.position = new Vector2(transForm.position.x, 12f);
-		transForm.rotation = Quaternion.identity;
-
-//		//reset Y position of its each children
-//		for(int i=0; i < transForm.childCount; i++){
-//			Transform childTransform = transForm.GetChild(i);
-//			childTransform.localPosition = new Vector2(childTransform.localPosition.x, 0f);
-//		}
-		transForm.parent = transform;
 		obj.SetActive(true);
 
 		return obj;
@@ -97,11 +89,6 @@ public class ObstacleGenerator : MonoBehaviour {
 	private void GameOver(){
 		//stopping all the spikes.
 		if(!isGameOver){
-			SpikeController[] spikeControllers =  transform.GetComponentsInChildren<SpikeController>(false);
-			for(int i=0; i<spikeControllers.Length;i++){
-				spikeControllers[i].Stop();
-			}
-			//stopping generation of new spikes.
 			isGameOver = true;
 		}
 	}

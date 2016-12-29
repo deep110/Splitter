@@ -4,18 +4,17 @@ public class SpikeController : MonoBehaviour {
 
 	private float Speed = 6.5f;
 	private Rigidbody2D rigidBody;
-	private bool move = true;
 
 	void Start(){
 		rigidBody = transform.GetComponent<Rigidbody2D>();
 	}
 
-	void FixedUpdate() {
-		if (move) {
-			rigidBody.velocity = Vector2.down * (Speed);
-		} else {
-			rigidBody.velocity = Vector2.zero;
+	void OnEnable() {
+		if (rigidBody == null) {
+			rigidBody = transform.GetComponent<Rigidbody2D> ();
 		}
+		rigidBody.velocity = Vector2.down * (Speed);
+		Events.GameOverEvent += Stop;
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
@@ -28,7 +27,11 @@ public class SpikeController : MonoBehaviour {
 
 	//stop the spikes
 	public void Stop(){
-		move = false;
+		rigidBody.velocity = Vector2.zero;
+	}
+
+	void OnDisable() {
+		Events.GameOverEvent -= Stop;
 	}
 
 }
