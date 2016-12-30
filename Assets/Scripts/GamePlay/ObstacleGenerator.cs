@@ -11,6 +11,7 @@ public class ObstacleGenerator : MonoBehaviour {
 		public GameObject spikeBoth;
 		public GameObject spikeCenter;
 		public GameObject spikeThree;
+		public GameObject blocks;
 	}
 
 	public Obstacles obstacles;
@@ -29,7 +30,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	private IEnumerator GenerateObstacle(){
-		objectPoolers = new Dictionary<int, ObjectPooler>(5);
+		objectPoolers = new Dictionary<int, ObjectPooler>(6);
 		InitObjectPools();
 
 		//make queue for storing previous values which will help in generating next spike.
@@ -63,13 +64,14 @@ public class ObstacleGenerator : MonoBehaviour {
 		objectPoolers[3] = new ObjectPooler(obstacles.spikeBoth, 3);
 		objectPoolers[4] = new ObjectPooler(obstacles.spikeCenter, 2);
 		objectPoolers[5] = new ObjectPooler (obstacles.spikeThree, 3);
+		objectPoolers [6] = new ObjectPooler (obstacles.blocks, 3);
 	}
 
 	// Generates the new spike id that is to be instatiated.
 	private int GetspikeId(SpecialQueue queue){
-		int x = Random.Range(1, 6);
+		int x = Random.Range(1, 7);
 		if(queue.IsAlert(x)){
-			int y = Random.Range(1, 5);
+			int y = Random.Range(1, 6);
 			if(x == y) x = 4;
 			else x = y;
 		}
