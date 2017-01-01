@@ -18,7 +18,7 @@ public class BlockController : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		theta = Random.Range (0, 1.0f);
+		theta = Random.Range (0, 3.14f);
 	}
 	
 	// Update is called once per frame
