@@ -10,7 +10,6 @@ public class ObstacleGenerator : MonoBehaviour {
 		public GameObject spikeRight;
 		public GameObject spikeBoth;
 		public GameObject spikeCenter;
-		public GameObject spikeThree;
 		public GameObject blocks;
 	}
 
@@ -30,7 +29,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	private IEnumerator GenerateObstacle(){
-		objectPoolers = new Dictionary<int, ObjectPooler>(6);
+		objectPoolers = new Dictionary<int, ObjectPooler>(5);
 		InitObjectPools();
 
 		//make queue for storing previous values which will help in generating next spike.
@@ -47,13 +46,11 @@ public class ObstacleGenerator : MonoBehaviour {
 			//Generate the next spike id and decide its generation rate.
 			spikeId = GetspikeId(queue);
 
-			if(queue.IsCenterSpike()) waitTime = waitTime + 0.3f;
+			if(queue.IsCenterSpike()) waitTime = 1.1f;
 
 			yield return new WaitForSeconds(waitTime);
-			waitTime -= Random.Range(0, 0.2f);
-			if (waitTime < 0.8f) {
-				waitTime = 0.8f;
-			}
+			waitTime = 1.0f;
+
 		}
 		
 	}
@@ -63,15 +60,14 @@ public class ObstacleGenerator : MonoBehaviour {
 		objectPoolers[2] = new ObjectPooler(obstacles.spikeRight, 3);
 		objectPoolers[3] = new ObjectPooler(obstacles.spikeBoth, 3);
 		objectPoolers[4] = new ObjectPooler(obstacles.spikeCenter, 2);
-		objectPoolers[5] = new ObjectPooler (obstacles.spikeThree, 3);
-		objectPoolers [6] = new ObjectPooler (obstacles.blocks, 3);
+		objectPoolers[5] = new ObjectPooler (obstacles.blocks, 3);
 	}
 
 	// Generates the new spike id that is to be instatiated.
 	private int GetspikeId(SpecialQueue queue){
-		int x = Random.Range(1, 7);
+		int x = Random.Range(1, 6);
 		if(queue.IsAlert(x)){
-			int y = Random.Range(1, 6);
+			int y = Random.Range(1, 5);
 			if(x == y) x = 4;
 			else x = y;
 		}
@@ -83,6 +79,14 @@ public class ObstacleGenerator : MonoBehaviour {
 	private GameObject Spawn(GameObject obj){
 		Transform transForm = obj.transform;
 		transForm.position = new Vector2(transForm.position.x, 12f);
+		transForm.rotation = Quaternion.identity;
+
+		//reset Y position of its each children
+		for(int i=0; i<transForm.childCount; i++){
+			Transform childTransform = transForm.GetChild(i);
+			childTransform.localPosition = new Vector2(childTransform.localPosition.x, 0f);
+		}
+		transForm.parent = transform;
 		obj.SetActive(true);
 
 		return obj;

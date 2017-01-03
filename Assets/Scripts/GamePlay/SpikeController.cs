@@ -2,20 +2,24 @@
 
 public class SpikeController : MonoBehaviour {
 
-	private float Speed = 6.5f;
+//	private float Speed = 6.5f;
 	private Rigidbody2D rigidBody;
 
-	void Start(){
-		rigidBody = transform.GetComponent<Rigidbody2D>();
-	}
+//	void Start(){
+//		rigidBody = transform.GetComponent<Rigidbody2D>();
+//	}
 
-	void OnEnable() {
-		if (rigidBody == null) {
-			rigidBody = transform.GetComponent<Rigidbody2D> ();
-		}
-		rigidBody.velocity = Vector2.down * (Speed);
-		Events.GameOverEvent += Stop;
-	}
+//	void FixedUpdate() {
+//		if (rigidBody == null) {
+//			rigidBody = transform.GetComponent<Rigidbody2D> ();
+//		}
+//		rigidBody.velocity = Vector2.down * (Speed);
+//		Speed = SpeedController.Speed;
+//	}
+
+//	void OnEnable() {
+//		Events.GameOverEvent += Stop;
+//	}
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "PlayerLeft") {
@@ -26,12 +30,12 @@ public class SpikeController : MonoBehaviour {
 	}
 
 	//stop the spikes
-	public void Stop(){
-		rigidBody.velocity = Vector2.zero;
-	}
+//	public void Stop(){
+//		rigidBody.velocity = Vector2.zero;
+//	}
 
-	void OnDisable() {
-		Events.GameOverEvent -= Stop;
-	}
+//	void OnDisable() {
+//		Events.GameOverEvent -= Stop;
+//	}
 
 }
