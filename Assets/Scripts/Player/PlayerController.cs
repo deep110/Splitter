@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour{
 
 	public GameObject explosionPrefab;
 
-	private readonly float SPEED = 20;
+	private float Speed = 20;
 	private Pair<Transform> player;
 	private Pair<Rigidbody2D> rigidBody;
 	private Pair<Vector3> initialPos;
@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour{
 				break;
 		}
 		
-		rigidBody.Left.velocity = Vector2.right * (velocity.Left* SPEED);
-		rigidBody.Right.velocity = Vector2.right * (velocity.Right* SPEED);
+		rigidBody.Left.velocity = Vector2.right * (velocity.Left* Speed);
+		rigidBody.Right.velocity = Vector2.right * (velocity.Right* Speed);
 
 		AdjustConnector();
 	}
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour{
 			v = -1;
 		}else v = 0;
 
-		if(Mathf.Abs(x2-x1) <= (SPEED/50)){
+		if(Mathf.Abs(x2-x1) <= Speed / 50){
 			v = 0;
 		}
 

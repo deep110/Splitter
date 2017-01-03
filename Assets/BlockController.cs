@@ -23,7 +23,7 @@ public class BlockController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		theta += Time.deltaTime;
+		theta += Time.deltaTime * 0.7f;
 		leftTransform.position = new Vector3 (meanX - radius * Mathf.Cos(theta), leftTransform.position.y, 0);
 		rightTransform.position = new Vector3 (meanX + radius * Mathf.Cos (theta), rightTransform.position.y, 0);
 	}
