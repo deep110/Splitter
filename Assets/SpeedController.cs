@@ -7,7 +7,7 @@ public class SpeedController : MonoBehaviour {
 		
 	// Update is called once per frame
 	void FixedUpdate () {
-		Speed += Time.deltaTime;
+		Speed += Time.deltaTime / 7;
 	}
 
 	void OnEnable() {

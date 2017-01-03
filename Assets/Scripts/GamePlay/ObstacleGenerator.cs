@@ -38,7 +38,7 @@ public class ObstacleGenerator : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.8f);
 
-		float waitTime = 1.8f;
+		float waitTime = 1.8f / SpeedController.Speed * 6.5f;
 
 		while(!isGameOver){
 			Spawn(objectPoolers[spikeId].GetPooledObject());
@@ -46,10 +46,11 @@ public class ObstacleGenerator : MonoBehaviour {
 			//Generate the next spike id and decide its generation rate.
 			spikeId = GetspikeId(queue);
 
-			if(queue.IsCenterSpike()) waitTime = 1.1f;
-
+			if (queue.IsCenterSpike ())
+				waitTime = 1.3f / SpeedController.Speed * 6.5f;
+			else
+				waitTime = 1.1f / SpeedController.Speed * 6.5f;
 			yield return new WaitForSeconds(waitTime);
-			waitTime = 1.0f;
 
 		}
 		
