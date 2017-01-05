@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour{
 				velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
 
 				if((int)velocity.Left == 0){
-					player.Left.position = initialPos.Left;
+					player.Left.position = new Vector3(initialPos.Left.x, player.Left.position.y, player.Left.position.z);
 					posReset.Left = true;
 				}
 
 				if((int)velocity.Right == 0){
-					player.Right.position = initialPos.Right;
+					player.Right.position = new Vector3(initialPos.Right.x, player.Right.position.y, player.Right.position.z);
 					posReset.Right = true;
 				}
 					
