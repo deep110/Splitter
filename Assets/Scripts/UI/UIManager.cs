@@ -35,7 +35,4 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
-	public void OnClickRestart(){
-		SceneManager.LoadScene(1);
-	}
 }

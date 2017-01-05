@@ -26,6 +26,9 @@ public class GamePlayManager : MonoBehaviour {
 		}else{
 			score++;
 		}
+		if (score > PlayerPrefs.GetInt ("highscore")) {
+			PlayerPrefs.SetInt ("highscore", (int)score); 
+		}
 	}
 
 }
