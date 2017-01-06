@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour{
 
 	public GameObject explosionPrefab;
 
-	private float Speed = 20;
+	private float Speed = 0;
+	private float Speed1 = 0;
 	private Pair<Transform> player;
 	private Pair<Rigidbody2D> rigidBody;
 	private Pair<Vector3> initialPos;
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour{
 
 	private Transform connector;
 	private Pair<float> scale;
+
+	private Pair<float> currentX;
+	private Pair<float> targetX;
 	
 	void Start(){
 		player     = new Pair<Transform>(transform.GetChild(0), transform.GetChild(1));
@@ -26,77 +30,58 @@ public class PlayerController : MonoBehaviour{
 		posReset   = new Pair<bool>(false,false);
 		connector  = transform.GetChild(2);
 		scale      = new Pair<float>(0,1);
+		targetX = new Pair<float> (0, 0);
+		currentX = new Pair<float> (0, 0);
 	}
 
 	public void Move(InputManager.InputType input){
 
 		switch(input){
-			case InputManager.InputType.Left:
-				velocity.Left = -1;
-				velocity.Right = -1;
+		case InputManager.InputType.Left:
 
-				break;
+			targetX.Left = -3.2f;
+			targetX.Right = -2.18f;
 
-			case InputManager.InputType.Right:
-				velocity.Left = 1;
-				velocity.Right = 1;
+			break;
 
-				break;
+		case InputManager.InputType.Right:
 
-			case InputManager.InputType.Both:
-				velocity.Left = -1;
-				velocity.Right = 1;
+			targetX.Left = 2.18f;
+			targetX.Right = 3.2f;
 
-				break;
+			break;
 
-			case InputManager.InputType.None:
-				velocity.Left = GetReturnVelocity(initialPos.Left.x, player.Left.position.x);
-				velocity.Right = GetReturnVelocity(initialPos.Right.x, player.Right.position.x);
+		case InputManager.InputType.Both:
 
-				if((int)velocity.Left == 0){
-					player.Left.position = new Vector3(initialPos.Left.x, player.Left.position.y, player.Left.position.z);
-					posReset.Left = true;
-				}
+			targetX.Left = -3.2f;
+			targetX.Right = 3.2f;
 
-				if((int)velocity.Right == 0){
-					player.Right.position = new Vector3(initialPos.Right.x, player.Right.position.y, player.Right.position.z);
-					posReset.Right = true;
-				}
+			break;
+
+		case InputManager.InputType.None:
+
+			targetX.Left = -0.48f;
+			targetX.Right = 0.48f;
 					
-				break;
+			break;
 		}
-		
-		rigidBody.Left.velocity = Vector2.right * (velocity.Left* Speed);
-		rigidBody.Right.velocity = Vector2.right * (velocity.Right* Speed);
 
 		AdjustConnector();
+
+		currentX.Left = Mathf.SmoothDamp (currentX.Left, targetX.Left, ref Speed, 0.1f);
+		currentX.Right = Mathf.SmoothDamp (currentX.Right, targetX.Right, ref Speed1, 0.1f);
+
 	}
 
-	/*
-	* x = mod of current Position
-	*/
-	private float GetVelocity(float x){
-		x = Mathf.Abs(x);
-		return Mathf.Pow(x+1, 4) * (-0.002233f) + 1f;
-	}
+	void FixedUpdate() {
 
-	/*
-	* x1 = initial Position
-	* x2 = current Position
-	*/
-	private float GetReturnVelocity(float x1, float x2){
-		float v;
-		if(x2-x1 <0){
-			v = 1;
-		}else if(x2 - x1 > 0){
-			v = -1;
-		}else v = 0;
-
-		if(Mathf.Abs(x2-x1) <= Speed / 50){
-			v = 0;
+		if (player.Left != null) {
+			player.Left.position = new Vector3 (currentX.Left, player.Left.position.y);
+		} 
+		if (player.Right != null) {
+			player.Right.position = new Vector3 (currentX.Right, player.Right.position.y);
 		}
 
-		return v;
 	}
 
 	private void AdjustConnector(){
@@ -106,8 +91,6 @@ public class PlayerController : MonoBehaviour{
 		connector.localScale = new Vector2(scale.Left, scale.Right);
 		connector.position = new Vector2((player.Right.position.x + player.Left.position.x)/2, initialPos.Left.y);
 	}
-
-
 
 	public void Dead(int index){
         Events.CallGameOver();
