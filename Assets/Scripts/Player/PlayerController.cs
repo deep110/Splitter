@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour{
 		scale.Left = 1.13f * (distance - 0.9f);
 		scale.Right = 1f - (0.081f * distance);
 		connector.localScale = new Vector2(scale.Left, scale.Right);
-		connector.position = new Vector2((player.Right.position.x + player.Left.position.x)/2, initialPos.Left.y);
+		connector.position = new Vector2((player.Right.position.x + player.Left.position.x)/2, player.Left.position.y);
 	}
 
 	public void Dead(int index){
