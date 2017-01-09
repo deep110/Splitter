@@ -7,6 +7,7 @@ public class GamePlayManager : MonoBehaviour {
 
 	public bool gameStart = true;
 	public bool gameOver = false;
+	public Animator cameraShake;
 
 	void Start () {
 		Events.GameOverEvent += GameOver;
@@ -14,6 +15,7 @@ public class GamePlayManager : MonoBehaviour {
 	
 	private void GameOver(){
 		gameOver = true;
+		cameraShake.SetTrigger ("GameOver");
 	}
 
 	void OnDisable(){
