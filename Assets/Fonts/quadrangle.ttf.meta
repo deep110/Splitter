@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8155616b6cddf4af9bd183308ff6378a
-timeCreated: 1483286356
+guid: 79223f0fbf08d47c59a28d0938e15f4e
+timeCreated: 1484235667
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Hippie Movement
+  - Quadrangle
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

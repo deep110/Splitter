@@ -4,11 +4,15 @@ public class PlayerScript : MonoBehaviour {
 
 	public ParticleSystem sparksTop;
 	public ParticleSystem sparksBottom;
+	public AudioClip sawClip;
 
 	private bool isPlaying = false;
+	private AudioSource source;
 
 	void OnEnable() {
 		Events.GameOverEvent += OnGameOver;
+		source = GetComponent<AudioSource> ();
+		source.loop = true;
 	}
 
 	void OnDisable() {
@@ -20,6 +24,9 @@ public class PlayerScript : MonoBehaviour {
       		sparksTop.Play();
       		sparksBottom.Play();
       		isPlaying = true;
+
+			//Play the saw clip
+			source.PlayOneShot(sawClip, 0.3f);
         }
     }
 
@@ -28,6 +35,8 @@ public class PlayerScript : MonoBehaviour {
     		sparksTop.Stop();
     		sparksBottom.Stop();
     		isPlaying = false;
+
+			source.Stop ();
     	}
     }
 

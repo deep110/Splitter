@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
 
 	public GameObject explosionPrefab;
+	public AudioClip explosionClip;
 
 	private float Speed = 0;
 	private float Speed1 = 0;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour{
 	private Pair<float> currentX;
 	private Pair<float> targetX;
 	private float timeToMove;
+	private AudioSource source;
 	
 	void Start(){
 		playerTransform     = new Pair<Transform>(transform.GetChild(0), transform.GetChild(1));
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour{
 		targetX = new Pair<float> (0, 0);
 		currentX = new Pair<float> (0, 0);
 		timeToMove = 0.1f * SpeedController.Speed / 6.5f;
+		source = GetComponent<AudioSource> ();
 	}
 
 	public void Move(InputManager.InputType input){
@@ -91,6 +94,8 @@ public class PlayerController : MonoBehaviour{
         Destroy(playerTransform.Left.gameObject);
 		Destroy (playerTransform.Right.gameObject);
         Instantiate(explosionPrefab, playerTransform.Left.position, Quaternion.identity); 
+
+		source.PlayOneShot (explosionClip, 1f);
 
         if(connector!=null){
         	Destroy(connector.gameObject);
