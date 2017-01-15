@@ -26,7 +26,9 @@ public class PlayerScript : MonoBehaviour {
       		isPlaying = true;
 
 			//Play the saw clip
-			source.PlayOneShot(sawClip, 0.3f);
+			if (PlayerPrefs.GetInt ("Sound", 1) == 1) {
+				source.PlayOneShot (sawClip, 0.3f);
+			}
         }
     }
 

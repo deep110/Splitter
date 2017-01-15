@@ -95,7 +95,9 @@ public class PlayerController : MonoBehaviour{
 		Destroy (playerTransform.Right.gameObject);
         Instantiate(explosionPrefab, playerTransform.Left.position, Quaternion.identity); 
 
-		source.PlayOneShot (explosionClip, 1f);
+		if (PlayerPrefs.GetInt ("Sound", 1) == 1) {
+			source.PlayOneShot (explosionClip, 1f);
+		}
 
         if(connector!=null){
         	Destroy(connector.gameObject);
