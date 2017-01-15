@@ -17,6 +17,7 @@ public class ObstacleGenerator : MonoBehaviour {
 		tutorial, playing
 	};
 	private State state;
+	private int isTutShown;//This stores whether tutorial has been shown once or not
 
 	public Obstacles obstacles;
 	
@@ -36,7 +37,12 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	void Start () {
 		Events.GameOverEvent += GameOver;
-		state = State.tutorial;
+		isTutShown = PlayerPrefs.GetInt ("tutorial", 1);
+		if (isTutShown == 0) {
+			state = State.playing;
+		} else {
+			state = State.tutorial;
+		}
 	}
 	
 	void OnDisable (){
