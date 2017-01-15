@@ -13,12 +13,17 @@ public class ObstacleGenerator : MonoBehaviour {
 		public GameObject blocks;
 	}
 
+	private enum State {
+		tutorial, playing
+	};
+	private State state;
+
 	public Obstacles obstacles;
 	
 	private Dictionary<int,ObjectPooler> objectPoolers;
 	private int spikeId = 0;
 	private bool isGameOver = false;
-
+	private bool tutorialEnded = false;
 	/*
 	 * This condition is applied so that the moving obstacles appear
 	 * after certain score, not initially
@@ -31,38 +36,50 @@ public class ObstacleGenerator : MonoBehaviour {
 
 	void Start () {
 		Events.GameOverEvent += GameOver;
-		StartCoroutine(GenerateObstacle());
+		state = State.tutorial;
 	}
 	
-	void OnDisable(){
+	void OnDisable (){
 		Events.GameOverEvent -= GameOver;
 	}
 
-	private IEnumerator GenerateObstacle(){
-		objectPoolers = new Dictionary<int, ObjectPooler>(5);
-		InitObjectPools();
+	void Update () {
+		if (state == State.tutorial) {
+			if (!TutorialController.isTutorialRunning ()) {
+				state = State.playing;
+			}
+		} else if (state == State.playing && !tutorialEnded) {
+			StartCoroutine (GenerateObstacle ());
+			tutorialEnded = true;
+		}
+	}
+
+	private IEnumerator GenerateObstacle (){
+
+		objectPoolers = new Dictionary<int, ObjectPooler> (5);
+		InitObjectPools ();
 
 		//make queue for storing previous values which will help in generating next spike.
-		SpecialQueue queue = new SpecialQueue();
-		spikeId = GetspikeId(queue);
+		SpecialQueue queue = new SpecialQueue ();
+		spikeId = GetspikeId (queue);
 
-		yield return new WaitForSeconds(1.8f);
+		yield return new WaitForSeconds (1.8f);
 		spikesGenerated = 1;
 
 		float waitTime = 1.8f / SpeedController.Speed * 6.5f;
 
-		while(!isGameOver){
-			Spawn(objectPoolers[spikeId].GetPooledObject());
+		while (!isGameOver) {
+			Spawn (objectPoolers [spikeId].GetPooledObject ());
 
 			//Generate the next spike id and decide its generation rate.
-			spikeId = GetspikeId(queue);
+			spikeId = GetspikeId (queue);
 
 			if (queue.IsCenterSpike ())
 				waitTime = 1.3f / SpeedController.Speed * 6.5f;
 			else
 				waitTime = 1.1f / SpeedController.Speed * 6.5f;
-			
-			yield return new WaitForSeconds(waitTime);
+		
+			yield return new WaitForSeconds (waitTime);
 			spikesGenerated++; 
 
 			//This increases the maxObstacleId to allow moving obstacles to fall
@@ -72,7 +89,7 @@ public class ObstacleGenerator : MonoBehaviour {
 				}
 			}
 		}
-		
+
 	}
 
 	private void InitObjectPools(){
