@@ -4,17 +4,18 @@ using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour {
 
+	public GameObject gamePlayManager;
+	public GameObject scoreCounter;
+
 	private static bool isRunning;
 	private GameObject tutorialText;
-
 	private enum Level {
 		left, right, both, none
 	};
-
-	public GameObject gamePlayManager;
 	private InputManager input;
 	private Level currentLevel;
-	private float touchTime = 0;
+	private float touchTime = 0;//Time for which screen is pressed currently in a state
+	private float holdTime = 1f;//Time for which screen is to be pressed to move to next state
 
 	void OnEnable () {
 		isRunning = true;
@@ -30,10 +31,11 @@ public class TutorialController : MonoBehaviour {
 	void Update () {
 		if (isRunning) {
 			if (currentLevel == Level.left) {
+				scoreCounter.SetActive (false);
 				tutorialText.GetComponent<Text> ().text = "Tap and hold left side of screen to move left";
 				if (input.MappedInput == InputManager.InputType.Left) {
 					touchTime += Time.deltaTime;
-					if (touchTime > 0.5f) {
+					if (touchTime > holdTime) {
 						currentLevel = Level.right;
 						touchTime = 0;
 					}
@@ -44,7 +46,7 @@ public class TutorialController : MonoBehaviour {
 				tutorialText.GetComponent<Text> ().text = "Tap and hold right side of screen to move right";
 				if (input.MappedInput == InputManager.InputType.Right) {
 					touchTime += Time.deltaTime;
-					if (touchTime > 0.5f) {
+					if (touchTime > holdTime) {
 						currentLevel = Level.both;
 						touchTime = 0;
 					}
@@ -55,7 +57,7 @@ public class TutorialController : MonoBehaviour {
 				tutorialText.GetComponent<Text> ().text = "Tap and hold both sides of screen to split";
 				if (input.MappedInput == InputManager.InputType.Both) {
 					touchTime += Time.deltaTime;
-					if (touchTime > 0.5f) {
+					if (touchTime > holdTime) {
 						currentLevel = Level.none;
 						touchTime = 0;
 					}
@@ -65,6 +67,7 @@ public class TutorialController : MonoBehaviour {
 			} else if (currentLevel == Level.none && isRunning == true) {
 				tutorialText.GetComponent<Text> ().text = "";
 				isRunning = false;
+				scoreCounter.SetActive (true);
 				PlayerPrefs.SetInt ("tutorial", 0);
 			}
 		}
