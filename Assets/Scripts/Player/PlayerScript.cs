@@ -7,6 +7,14 @@ public class PlayerScript : MonoBehaviour {
 
 	private bool isPlaying = false;
 
+	void OnEnable() {
+		Events.GameOverEvent += OnGameOver;
+	}
+
+	void OnDisable() {
+		Events.GameOverEvent -= OnGameOver;
+	}
+
 	void OnCollisionEnter2D(Collision2D other) {
         if(other.transform.tag.Equals("Wall")){
       		sparksTop.Play();
@@ -22,5 +30,13 @@ public class PlayerScript : MonoBehaviour {
     		isPlaying = false;
     	}
     }
+
+	void OnGameOver() {
+		if (isPlaying) {
+			sparksTop.Stop ();
+			sparksBottom.Stop ();
+			isPlaying = false;
+		}
+	}
 
 }

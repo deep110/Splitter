@@ -10,6 +10,7 @@ public class ObstacleGenerator : MonoBehaviour {
 		public GameObject spikeRight;
 		public GameObject spikeBoth;
 		public GameObject spikeCenter;
+		public GameObject blocks;
 	}
 
 	public Obstacles obstacles;
@@ -28,7 +29,7 @@ public class ObstacleGenerator : MonoBehaviour {
 	}
 
 	private IEnumerator GenerateObstacle(){
-		objectPoolers = new Dictionary<int, ObjectPooler>(4);
+		objectPoolers = new Dictionary<int, ObjectPooler>(5);
 		InitObjectPools();
 
 		//make queue for storing previous values which will help in generating next spike.
@@ -37,15 +38,20 @@ public class ObstacleGenerator : MonoBehaviour {
 
 		yield return new WaitForSeconds(1.8f);
 
+		float waitTime = 1.8f / SpeedController.Speed * 6.5f;
+
 		while(!isGameOver){
 			Spawn(objectPoolers[spikeId].GetPooledObject());
 
 			//Generate the next spike id and decide its generation rate.
 			spikeId = GetspikeId(queue);
-			float waitTime = 0.8f;
-			if(queue.IsCenterSpike()) waitTime = 1f;
 
+			if (queue.IsCenterSpike ())
+				waitTime = 1.3f / SpeedController.Speed * 6.5f;
+			else
+				waitTime = 1.1f / SpeedController.Speed * 6.5f;
 			yield return new WaitForSeconds(waitTime);
+
 		}
 		
 	}
@@ -55,19 +61,20 @@ public class ObstacleGenerator : MonoBehaviour {
 		objectPoolers[2] = new ObjectPooler(obstacles.spikeRight, 3);
 		objectPoolers[3] = new ObjectPooler(obstacles.spikeBoth, 3);
 		objectPoolers[4] = new ObjectPooler(obstacles.spikeCenter, 2);
+		objectPoolers[5] = new ObjectPooler (obstacles.blocks, 3);
 	}
 
 	// Generates the new spike id that is to be instatiated.
 	private int GetspikeId(SpecialQueue queue){
-		int x = Random.Range(1, 5);
+		int x = Random.Range(1, 6);
 		if(queue.IsAlert(x)){
-			int y = Random.Range(1, 4);
+			int y = Random.Range(1, 5);
 			if(x == y) x = 4;
 			else x = y;
 		}
 		queue.Push(x);
 
-		return x;	
+		return x;
 	}
 
 	private GameObject Spawn(GameObject obj){
@@ -89,11 +96,6 @@ public class ObstacleGenerator : MonoBehaviour {
 	private void GameOver(){
 		//stopping all the spikes.
 		if(!isGameOver){
-			SpikeController[] spikeControllers =  transform.GetComponentsInChildren<SpikeController>(false);
-			for(int i=0; i<spikeControllers.Length;i++){
-				spikeControllers[i].Stop();
-			}
-			//stopping generation of new spikes.
 			isGameOver = true;
 		}
 	}
