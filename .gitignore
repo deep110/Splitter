@@ -7,6 +7,10 @@ UnityGenerated/
 Library/
 Assets/AssetStoreTools*
 
+#Ignore folder meta files
+*.meta
+!*.*.meta
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
