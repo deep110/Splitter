@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 
 		if (!isGameOver) {
 			//the player position is the mean of positions of left and right childs

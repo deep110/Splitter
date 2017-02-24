@@ -23,13 +23,13 @@ public class GamePlayManager : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other){
-		if(other.tag.Equals("SpikeBoth")){
+		if(other.tag.Equals("SpikeBoth")) {
 			score += 0.5f;
-		}else{
+		} else {
 			score++;
 		}
 		if (score > PlayerPrefs.GetInt ("highscore")) {
-			PlayerPrefs.SetInt ("highscore", (int)score); 
+			PlayerPrefs.SetInt ("highscore", (int)score);
 		}
 	}
 
