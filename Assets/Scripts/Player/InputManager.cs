@@ -30,8 +30,8 @@ public class InputManager : MonoBehaviour {
 			touchX[i] = Input.GetTouch(i).position.x;
 		}
 
-		//MapInput();
-		MapKeyBoardInput();
+		MapInput();
+		//MapKeyBoardInput();
 	}
 
 	private void MapInput(){
