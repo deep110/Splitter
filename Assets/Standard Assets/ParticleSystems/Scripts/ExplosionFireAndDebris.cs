@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,8 +8,8 @@ namespace UnityStandardAssets.Effects
     {
         public Transform[] debrisPrefabs;
         public Transform firePrefab;
-        public int numDebrisPieces = 0;
-        public int numFires = 0;
+        public int numDebrisPieces;
+        public int numFires;
 
 
         private IEnumerator Start()
@@ -35,7 +34,7 @@ namespace UnityStandardAssets.Effects
                 if (numFires > 0)
                 {
                     RaycastHit fireHit;
-                    Ray fireRay = new Ray(transform.position, col.transform.position - transform.position);
+                    var fireRay = new Ray(transform.position, col.transform.position - transform.position);
                     if (col.Raycast(fireRay, out fireHit, r))
                     {
                         AddFire(col.transform, fireHit.point, fireHit.normal);
@@ -48,7 +47,7 @@ namespace UnityStandardAssets.Effects
             while (numFires > 0 && testR < r)
             {
                 RaycastHit fireHit;
-                Ray fireRay = new Ray(transform.position + Vector3.up, Random.onUnitSphere);
+                var fireRay = new Ray(transform.position + Vector3.up, Random.onUnitSphere);
                 if (Physics.Raycast(fireRay, out fireHit, testR))
                 {
                     AddFire(null, fireHit.point, fireHit.normal);
@@ -62,7 +61,7 @@ namespace UnityStandardAssets.Effects
         private void AddFire(Transform t, Vector3 pos, Vector3 normal)
         {
             pos += normal*0.5f;
-            Transform fire = (Transform) Instantiate(firePrefab, pos, Quaternion.identity);
+            Transform fire = Instantiate(firePrefab, pos, Quaternion.identity);
             fire.parent = t;
         }
     }

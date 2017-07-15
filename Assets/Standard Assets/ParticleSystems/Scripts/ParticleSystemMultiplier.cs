@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ParticleSystemMultiplier : MonoBehaviour{
@@ -11,9 +10,12 @@ public class ParticleSystemMultiplier : MonoBehaviour{
 
         var systems = GetComponentsInChildren<ParticleSystem>();
         foreach (ParticleSystem system in systems){
-            system.startSize *= multiplier;
-            system.startSpeed *= multiplier;
-            system.startLifetime *= Mathf.Lerp(multiplier, 1, 0.5f);
+            ParticleSystem.MainModule main = system.main;
+
+            main.startSizeMultiplier = multiplier;
+            main.startSpeedMultiplier = multiplier;
+            main.startLifetimeMultiplier = Mathf.Lerp(multiplier, 1, 0.5f);
+            
             system.Clear();
             system.Play();
         }

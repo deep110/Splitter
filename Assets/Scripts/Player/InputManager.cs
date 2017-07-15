@@ -26,20 +26,22 @@ public class InputManager : MonoBehaviour {
 	
 	void FixedUpdate () {
 		
+		if (Application.isMobilePlatform) {
+			MapMobileInput ();
+		} else {
+			MapKeyBoardInput ();
+		}
+	}
+
+	private void MapMobileInput(){
+
 		for(int i=0;i< Input.touchCount && i<2;i++){
 			touchX[i] = Input.GetTouch(i).position.x;
 		}
 
-		MapInput();
-		//MapKeyBoardInput();
-	}
-
-	private void MapInput(){
 		if(touchX[0] > -1f){
 			if(touchX[0]<halfScreenWidth){
-				if(touchX[1]> halfScreenWidth){
-					MappedInput = InputType.Both;
-				}else MappedInput = InputType.Left;
+				MappedInput = (touchX[1]> halfScreenWidth) ? InputType.Both : InputType.Left;
 			}else{
 				if(touchX[1] > 0 && touchX[1]< halfScreenWidth){
 					MappedInput = InputType.Both;

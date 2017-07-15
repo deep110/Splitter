@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MusicPlayer : MonoBehaviour {
 
@@ -13,12 +12,8 @@ public class MusicPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		int value;
-		if (isMusic) {
-			value = PlayerPrefs.GetInt ("Music", 1);
-		} else {
-			value = PlayerPrefs.GetInt ("Sound", 1);
-		}
+		int value = isMusic ? PlayerPrefs.GetInt ("Music", 1) : PlayerPrefs.GetInt ("Sound", 1);
+		
 		if (value == 1) {
 			source = GetComponent<AudioSource> ();
 			source.loop = loop;
