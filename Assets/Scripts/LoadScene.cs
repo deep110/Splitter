@@ -4,9 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : StateMachineBehaviour {
 
+	public bool isHome = false;
+
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		SceneManager.LoadScene (1); 
+		if (isHome) {
+			SceneManager.LoadScene (1); 
+		} else {
+			SceneManager.LoadScene (2);
+		}
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

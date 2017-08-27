@@ -18,10 +18,14 @@ public class BlockController : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		theta = Random.Range (0, 3.14f);
+		if (Random.Range (0, 1.0f) < 0.2f) {
+			theta = 0.5f;
+		}
+		else {
+			theta = 4.5f;
+		}
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		theta += Time.deltaTime * 0.7f;
 		leftTransform.position = new Vector3 (meanX - radius * Mathf.Cos(theta), leftTransform.position.y, 0);

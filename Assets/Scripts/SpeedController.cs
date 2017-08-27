@@ -4,10 +4,13 @@ using System.Collections;
 public class SpeedController : MonoBehaviour {
 
 	public static float Speed = 6.5f;
-		
-	// Update is called once per frame
-	void FixedUpdate () {
-		Speed += Time.deltaTime / 7;
+
+	void Start() {
+		Speed = 6.5f;
+	}
+
+	public static void IncreaseSpeed(float step) {
+		Speed += step / 6;
 	}
 
 	void OnEnable() {
@@ -20,6 +23,10 @@ public class SpeedController : MonoBehaviour {
 
 	void OnDisable() {
 		Events.GameOverEvent -= OnGameOver;
+	}
+
+	public static void Reset() {
+		Speed = 6.5f;
 	}
 
 }
